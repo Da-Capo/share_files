@@ -223,5 +223,7 @@ def get_base_model(model_type, train_type):
         base_model = NASNetLarge(include_top=False, 
                                   weights=None,
                                   input_tensor=None)
+    elif model_type=="ResNet":
+        base_model = resnet()
 
     return base_model

@@ -1,4 +1,3 @@
-
 import keras
 import tensorflow as tf
 from keras import backend, layers, models, regularizers
@@ -148,9 +147,7 @@ def resnet():
                                     activation=None,
                                     batch_normalization=False)
             x = layers.add([x, y])
-
         num_filters_in = num_filters_out
-
     # Add classifier on top.
     # v2 has BN-ReLU before Pooling
     x = layers.BatchNormalization()(x)
@@ -159,8 +156,7 @@ def resnet():
 
 
 
-def get_base_model(model_type, train_type):
-
+def get_base_model(model_type, train_type):  
     def add_regularizers_l2(model):
         for layer in model.layers:
             if type(layer)==keras.engine.training.Model:
@@ -168,6 +164,7 @@ def get_base_model(model_type, train_type):
             elif hasattr(layer, 'kernel_regularizer'):
                 layer.kernel_regularizer= regularizers.l2(0.01)
     #             print(layer, layer.kernel_regularizer)
+    
     def lock_some_layer(model):
         for layer in model.layers:
             if type(layer)==keras.engine.training.Model:
@@ -175,9 +172,7 @@ def get_base_model(model_type, train_type):
                     l.trainable = False
                 for l in layer.layers[115:]:
                     l.trainable = True
-    
-    
-    backend.clear_session()
+    base_model = None
     if model_type=="MobileNet":
         base_model = MobileNet(include_top=False, 
                                weights=None,
@@ -225,5 +220,4 @@ def get_base_model(model_type, train_type):
                                   input_tensor=None)
     elif model_type=="ResNet":
         base_model = resnet()
-
     return base_model

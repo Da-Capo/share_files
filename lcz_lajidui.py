@@ -859,6 +859,8 @@ class Helper:
             model = se_resnext26_32x4d(num_classes=num_classes).to(device)
         if name == "seresnext50":
             model = se_resnext50_32x4d(num_classes=num_classes).to(device)
+        if name == "seresnext101":
+            model = se_resnext101_32x4d(num_classes=num_classes).to(device)
         return model, -1
 
     def load_model(self, rule):

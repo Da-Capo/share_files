@@ -448,7 +448,7 @@ class BaseNet(nn.Module):
         self.fc2 = nn.Linear(512, 1024)
         self.fc3 = nn.Linear(1024, num_classes)
         self.activate = nn.PReLU()
-        self.dropout = nn.Dropout(0.5)
+        self.dropout = nn.Dropout(0.2)
 
     def forward(self, x):
         x = self.activate(self.conv1(x))

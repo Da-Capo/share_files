@@ -400,7 +400,7 @@ def se_resnext101_32x4d(num_classes):
   
  
 class SE_ResNeXt_DOUBLE(nn.Module):
-    def __init__(self, input_col=10, outputsize=128,baseWidth=4, cardinality=32, head7x7=False, layers=(2, 2, 2, 2), num_classes=17):
+    def __init__(self, input_col=10, outputsize=128, baseWidth=4, cardinality=32, head7x7=False, layers=(2, 2, 2, 2), num_classes=17):
         """ Constructor
         Args:
             baseWidth: baseWidth for SE_ResNeXt.
@@ -408,7 +408,7 @@ class SE_ResNeXt_DOUBLE(nn.Module):
             layers: config of layers, e.g., [3, 4, 6, 3]
             num_classes: number of classes
         """
-        super(SE_ResNeXt, self).__init__()
+        super(SE_ResNeXt_DOUBLE, self).__init__()
         block = SEBottleneck
 
         self.cardinality = cardinality

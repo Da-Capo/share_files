@@ -854,9 +854,9 @@ class Dataset(data.Dataset):
         img -= mean
         img /= std
         img = np.clip(img,tmin,tmax)/(tmax-tmin)
-        if col_type="sen1":
+        if col_type=="sen1":
             img = img[..., :8]
-        if col_type="sen2":
+        if col_type=="sen2":
             img = img[..., 8:]
         if self.aug:
             if np.random.random_sample() > 0.5:

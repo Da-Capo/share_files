@@ -824,7 +824,7 @@ def smooth_loss(pred, gold):
 ###########################################################################################################################
 # @title  helper functions
 class Dataset(data.Dataset):
-    def __init__(self, fid, class_config=None, aug=False):
+    def __init__(self, fid, class_config=None, aug=False, col_type="all"):
         try:
             class_map = self.get_class_map(class_config)
             labels = [class_map.get(l, -1) for l in np.argmax(fid['label'], -1).tolist()]
@@ -837,6 +837,7 @@ class Dataset(data.Dataset):
         self.list_IDs = partition
         self.fid = fid
         self.aug = aug
+        self.col_type = col_type
 
     def __len__(self):
         return len(self.list_IDs)
@@ -853,6 +854,10 @@ class Dataset(data.Dataset):
         img -= mean
         img /= std
         img = np.clip(img,tmin,tmax)/(tmax-tmin)
+        if col_type="sen1":
+            img = img[..., :8]
+        if col_type="sen2":
+            img = img[..., 8:]
         if self.aug:
             if np.random.random_sample() > 0.5:
                 img = cv2.flip(img, 0)

@@ -498,7 +498,34 @@ class SE_ResNeXt_DOUBLE(nn.Module):
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
         x = self.fc(x)
+        x = self.relu(x)
         x = self.fc1(x)
+        return x
+    
+    def feature(self, x):
+        if self.head7x7:
+            x = self.conv1(x)
+            x = self.bn1(x)
+            x = self.relu(x)
+        else:
+            x = self.conv1(x)
+            x = self.bn1(x)
+            x = self.relu(x)
+            x = self.conv2(x)
+            x = self.bn2(x)
+            x = self.relu(x)
+            x = self.conv3(x)
+            x = self.bn3(x)
+            x = self.relu(x)
+        x = self.maxpool(x)
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+        x = self.avgpool(x)
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        x = self.relu(x)
         return x
 
 
